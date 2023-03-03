@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  username  String
+  profile   String
+  email     String    @unique
+  cart      Cart[]    @relation("cart")
+  history   History[] @relation("history")
+  createdAt DateTime  @default(now())
+}
+
+model History {
+  id       String    @id @default(uuid())
+  author   User?     @relation("history", fields: [userId], references: [id])
+  userId   String?
+  products Product[] @relation("history-payment")
+}
+
+model Cart {
+  id       String    @id @default(uuid())
+  author   User?     @relation("cart", fields: [userId], references: [id])
+  userId   String?
+  products Product[] @relation("products")
+}
+
+model Product {
+  id                 String   @id @default(uuid())
+  title              String
+  author             Cart?    @relation("products", fields: [userId], references: [id])
+  userId             String?
+  userPaymentHistory History? @relation("history-payment", fields: [userPaymentId], references: [id])
+  userPaymentId      String?
+  price              Int
+  description        String
+  image              String
+  category           String
+  createdAt          DateTime @default(now())
+}

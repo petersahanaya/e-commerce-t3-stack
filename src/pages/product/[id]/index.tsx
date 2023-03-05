@@ -9,7 +9,9 @@ import {BiLeftArrow} from "react-icons/bi"
 import { BsHandbag } from "react-icons/bs"
 import Image from "next/image"
 import Link from "next/link"
+import { motion } from "framer-motion"
 import { useState } from "react"
+import { PopUpVariant } from "@/functions/Variants/variant"
 
 const ProductId: React.FC<{ product: Product}> = ({ product }) => {
     const [success, setSuccess] = useState(false)
@@ -73,12 +75,12 @@ const ProductId: React.FC<{ product: Product}> = ({ product }) => {
                 </div>
                 <button disabled={loading} onClick={() => handleAddToCart(id)} className={`bg-lime-400 font-[500] text-stone-800 p-2 rounded-full mt-8 w-[80vw] mx-auto hover:bg-lime-500 transition-[200ms] ${loading && "opacity-70"}`}>Order Now 😁</button>
             </section>
-            {success && <div className="w-[70vw] fixed top-[10px] left-[20%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+            {success && <motion.div initial="hidden" animate="visible" exit="hidden" variants={PopUpVariant} className="w-[70vw] fixed top-[10px] left-[20%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                 <p>Successfully Added</p>
-            </div>}
-            {error && <div className="w-[70vw] fixed top-[10px] left-[20%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+            </motion.div>}
+            {error && <motion.div initial="hidden" animate="visible" exit="hidden" variants={PopUpVariant} className="w-[70vw] fixed top-[10px] left-[20%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                 <p>This item is already added </p>
-            </div>}
+            </motion.div>}
         </main>
     )
 }

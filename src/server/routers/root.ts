@@ -11,16 +11,15 @@ export const appRouter = router({
     products: protectedProcedure
         .input((z.object({ skip: z.number(), take: z.number() }).optional().nullish()))
         .query(async ({ input, ctx }) => {
-            if (input?.skip || input?.take) {
+            if (input?.skip && input?.take) {
                 const results = await ctx.prisma.product.findMany({
-                    take: input.take, skip: input.skip,
+                    take: input.take, skip: input.skip ,
                     select: { title: true, description: true, category: true, image: true, id: true, price: true }
                 })
 
                 return results
             }
             const results = await ctx.prisma.product.findMany({
-                take: 10,
                 select: { title: true, description: true, category: true, image: true, id: true, price: true }
             })
 
@@ -88,8 +87,14 @@ export const appRouter = router({
             if (!found) throw new TRPCError({ code: "CONFLICT", message: "Cannot Found The item.." })
 
             return "Item Deleted Successfully"
-        })
+        }),
+    getProductByName: protectedProcedure
+        .input((z.object({ name: z.string() })))
+        .query(async ({ ctx, input }) => {
+            const result = await ctx.prisma.product.findFirst({ where: { title: input.name } })
 
+            return result
+        })
 })
 
 export type AppRouter = typeof appRouter

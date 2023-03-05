@@ -5,6 +5,7 @@ import Images from "@components/Images/Images"
 import Link from "next/link"
 import { useState } from "react"
 import Sidebar from "@components/Sidebar/Sidebar"
+import { AnimatePresence } from "framer-motion"
 
 const Header: React.FC<{ user: Session['user'] }> = ({ user }) => {
   const [toggle, setToggle] = useState(false)
@@ -25,7 +26,9 @@ const Header: React.FC<{ user: Session['user'] }> = ({ user }) => {
         <span className={`w-full transition-all translate h-[2px] rounded-xl bg-stone-200 ${toggle && "rotate-[45deg] translate-y-[-5px]"}`}></span>
       </div>
       </section>
+      <AnimatePresence>
       {toggle && <Sidebar/>}
+      </AnimatePresence>
     </header>
   )
 }

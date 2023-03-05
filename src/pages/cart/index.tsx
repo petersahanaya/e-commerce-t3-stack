@@ -1,6 +1,6 @@
 import { appRouter } from "@/server/routers/root"
 import { GetServerSideProps } from "next"
-import { getServerSession, Session } from "next-auth"
+import { getServerSession  } from "next-auth"
 import Link from "next/link"
 import { BiLeftArrow } from "react-icons/bi"
 import { authOptions } from "../api/auth/[...nextauth]"
@@ -9,6 +9,8 @@ import { trpc } from "@/server/utils/trpc"
 import Image from "next/image"
 import { NumberFormat } from "@/functions/Format/format"
 import { useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { PopUpVariant, RouteVariant } from "@/functions/Variants/variant"
 
 const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
     const [success, setSuccess] = useState(false)
@@ -40,6 +42,9 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                     setSuccess(false)
                 }, 1500)
             },
+            onSettled(){
+                setTotal(data?.reduce((a, b) => data.length * b.price, 0)) 
+            }
         })
     }
 
@@ -51,10 +56,11 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                 </Link>
                 <p className="text-stone-100 font-[600] text-2xl">Cart 🛒</p>
             </header>
+            <AnimatePresence>
             {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4">No items yet 🧐</p> }
             <nav className="flex flex-col justify-center gap-2 w-screen ">
-                {data?.map(product => (
-                    <section onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className="bg-stone-200 flex justify-around items-center rounded-xl">
+                {data?.map((product, i) => (
+                    <motion.section layout variants={RouteVariant} initial="hidden" animate="visible"  onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className="bg-stone-200 flex justify-around items-center rounded-xl">
                     <div className="w-[100px] h-[100px] relative">
                         <Image className="mix-blend-darken" src={product.image} fill alt={product.title} />
                     </div>
@@ -62,7 +68,7 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                         <h3 className="text-stone-700">{product.title}</h3>
                         <p className="text-stone-600 text-[.8rem] font-[600]">{NumberFormat(product.price)}</p>
                     </div>
-                </section>
+                </motion.section>
             ))}
             </nav>
             {data ? data.length && <section className="flex flex-col justify-center items-center">
@@ -73,12 +79,13 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                 <button className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms]">Buy 💰</button>
                 {data && <p className="text-stone-500 text-sm mt-3">Double click to delete item 🔴</p>}
             </section> : null}
-            {success && <div className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+            {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                 <p>Successfully Removed</p>
-            </div>}
-            {error && <div className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+            </motion.div>}
+            {error && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                 <p>There&apos;s an error</p>
-            </div>}
+            </motion.div>}
+            </AnimatePresence>
         </main>
     )
 }

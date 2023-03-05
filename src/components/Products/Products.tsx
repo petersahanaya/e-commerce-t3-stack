@@ -3,7 +3,7 @@ import Link from "next/link"
 import Card from "./Card"
 
 const Products : React.FC<{products : Product[]}> = ({products}) => {
-    const { data : productss, isLoading, isError} = trpc.products.useQuery(undefined, {
+    const { data : productss, isLoading } = trpc.products.useQuery({take : 10, skip : 8}, {
         placeholderData : products
     })
 

@@ -33,7 +33,7 @@ export const getServerSideProps : GetServerSideProps = async ({req, res}) => {
     }
   }
 
-  const products = await appRouter.createCaller({req,res, prisma}).products()
+  const products = await appRouter.createCaller({req,res, prisma}).products({skip : 0, take : 10})
   const collections = await appRouter.createCaller({req,res, prisma}).collections()
   
   return {

@@ -28,15 +28,22 @@ export const authOptions: NextAuthOptions = {
             return session
         },
         async signIn({ user, account }) {
-            const duplicate = await prisma.user.findUnique({ where: { id: account?.providerAccountId } })
+            try {
 
-            if (!duplicate) {
-                await prisma.user.create({ data: { id: account?.providerAccountId, email: user.email!, profile: user.image!, username: user.name! } })
+                const duplicate = await prisma.user.findFirst({ where: { id: account?.providerAccountId } })
+                
+                if (!duplicate) {
+                    await prisma.user.create({ data: { id: account?.providerAccountId, email: user.email!, profile: user.image!, username: user.name! } })
+                    
+                    return true
+                }
+                
+                return true
+            }catch(e) {
+                console.log(e)
 
                 return true
             }
-
-            return true
         },
     },
     pages: {

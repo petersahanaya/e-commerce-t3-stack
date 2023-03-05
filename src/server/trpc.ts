@@ -5,17 +5,17 @@ import { Context } from "./utils/context";
 import SuperJSON from "superjson";
 
 export const t = initTRPC.context<Context>().create({
-    transformer : SuperJSON
+    transformer: SuperJSON
 })
 
-const IsAuthenticated = t.middleware(async ({ctx, next}) => {
+const IsAuthenticated = t.middleware(async ({ ctx, next }) => {
     const session = await getServerSession(ctx.req, ctx.res, authOptions) as Session
 
     if (!session?.user) {
-        throw new TRPCError({code : "FORBIDDEN", message : "You're UnAuthenticated.."})
+        throw new TRPCError({ code: "FORBIDDEN", message: "You're UnAuthenticated.." })
     }
 
-    return next({ctx : {user : session.user}})
+    return next({ ctx: { user: session.user } })
 })
 
 export const router = t.router

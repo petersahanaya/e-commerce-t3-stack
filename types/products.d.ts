@@ -5,7 +5,7 @@ type Product = {
     description : string,
     image : string
     category : string,
-    createdAt : string
+    createdAt? : string
 }
 
 type UnArray<T> = T extends Array<infer J> ? J : T

@@ -4,10 +4,13 @@ import { authOptions } from "../api/auth/[...nextauth]"
 import { BsFilter } from "react-icons/bs"
 import { CiSearch } from "react-icons/ci"
 import { ChangeEvent, useCallback, useState } from "react"
-import { prisma } from "@/server/utils/context"
+import prisma from "@/functions/Prisma/prisma"
 import Card from "@components/Products/Card"
 import { appRouter } from "@/server/routers/root"
 import Link from "next/link"
+import { AnimatePresence,motion } from "framer-motion"
+import { CardVariant  } from "@/functions/Variants/variant"
+import { BiLeftArrow } from "react-icons/bi"
 
 const Search: React.FC<{ products: Product[] }> = ({ products }) => {
     const [search, setSearch] = useState("")
@@ -43,6 +46,12 @@ const Search: React.FC<{ products: Product[] }> = ({ products }) => {
 
     return (
         <main className="bg-neutral-900 w-screen overflow-y-scroll h-screen pb-8">
+             <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
+                <Link href="/">
+                    <BiLeftArrow className="bg-stone-100 text-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms]" size={35} />
+                </Link>
+                <p className="text-stone-100 font-[600] text-2xl">Search 👞</p>
+            </header>
             <header className="w-full h-[12vh] p-2 flex justify-around items-center">
                 <div className="relative w-60">
                     {/*@ts-expect-error keyboard events error */}
@@ -55,11 +64,15 @@ const Search: React.FC<{ products: Product[] }> = ({ products }) => {
                 {!data || !data.length && <p className="mt-3 text-center text-stone-400 text-sm">Search for product you want 😆</p>}
             </nav>
             <nav className="w-screen flex flex-col justify-center items-center">
+                <AnimatePresence>
                 {data.map((product) => (
-                    <Link href={`/product/${product.id}`} className="w-[250px] mt-2" key={product.id}>
+                    <motion.section className="mt-2" key={product.id} layout variants={CardVariant} initial="hidden" animate="visible" exit="exit">
+                    <Link href={`/product/${product.id}`} >
                         <Card props={product} />
                     </Link>
+                    </motion.section>
                 ))}
+                </AnimatePresence>
             </nav>
         </main>
     )

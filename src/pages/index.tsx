@@ -1,6 +1,6 @@
 import { appRouter } from "@/server/routers/root"
-import {prisma} from '../server/utils/context'
 import { GetServerSideProps } from "next"
+import prisma from "@/functions/Prisma/prisma"
 import { getServerSession } from "next-auth"
 import { authOptions } from "./api/auth/[...nextauth]"
 import { Session } from "next-auth"

@@ -1,10 +1,7 @@
 import { inferAsyncReturnType } from "@trpc/server"
-import { PrismaClient } from "@prisma/client"
-import {CreateNextContextOptions} from "@trpc/server/adapters/next"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequest, NextApiResponse } from "next"
-
-export const prisma = new PrismaClient({log : ['query']})
+import prisma from "@/functions/Prisma/prisma"
 
 type NextContextOptions = {
     req : IncomingMessage & {
@@ -16,7 +13,6 @@ type NextContextOptions = {
 } 
 
 export const CreateContext = ({req, res} : NextContextOptions) => {
-
     return {
         req, 
         res,

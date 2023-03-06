@@ -1,19 +1,22 @@
 import { appRouter } from "@/server/routers/root"
 import { GetServerSideProps } from "next"
-import { getServerSession  } from "next-auth"
+import { getServerSession } from "next-auth"
 import Link from "next/link"
 import { BiLeftArrow } from "react-icons/bi"
 import { authOptions } from "../api/auth/[...nextauth]"
-import { prisma } from "@/server/utils/context"
+import prisma from "@/functions/Prisma/prisma" 
 import { trpc } from "@/server/utils/trpc"
 import Image from "next/image"
 import { NumberFormat } from "@/functions/Format/format"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { PopUpVariant, RouteVariant } from "@/functions/Variants/variant"
+import { CardVariant, PopUpVariant } from "@/functions/Variants/variant"
+import getStripe from "@/functions/Stripe/Stripe"
+import { BASEURI } from "../signIn"
 
 const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
     const [success, setSuccess] = useState(false)
+    const [redirecting, setRedirecting] = useState(false)
     const [error, setError] = useState(false)
 
     const { data, refetch } = trpc.cart.useQuery(undefined, {
@@ -21,6 +24,40 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
     })
 
     const [total, setTotal] = useState(data?.reduce((a, b) => data.length * b.price, 0))
+
+    const handleBuy = async () => {
+        try {
+            setRedirecting(true)
+            const stripe = await getStripe()
+
+            const res = await fetch(BASEURI + '/api/stripe', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ cartItems: data })
+            })
+
+            if (!res.ok) {
+                setRedirecting(true)
+                setError(true)
+
+                return setTimeout(() => {
+                    setError(false)
+                    setRedirecting(false)
+                }, 1500)
+            }
+
+            const result = await res.json() as { id: string,url : string }
+
+            window.location.replace(result.url)
+        } catch (e) {
+            console.error(e)
+        }finally {
+            setRedirecting(false)
+            setError(false)
+        }
+    }
 
     const utils = trpc.removeProduct.useMutation()
 
@@ -42,11 +79,15 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                     setSuccess(false)
                 }, 1500)
             },
-            onSettled(){
-                setTotal(data?.reduce((a, b) => data.length * b.price, 0)) 
+            onSettled() {
+                setTotal(data?.reduce((a, b) => data.length * b.price, 0))
             }
         })
     }
+
+    useEffect(() => {
+        setTotal(data?.reduce((a, b) => data.length * b.price, 0))
+    }, [data?.length])
 
     return (
         <main className="w-screen h-screen bg-neutral-900">
@@ -57,34 +98,39 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                 <p className="text-stone-100 font-[600] text-2xl">Cart 🛒</p>
             </header>
             <AnimatePresence>
-            {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4">No items yet 🧐</p> }
-            <nav className="flex flex-col justify-center gap-2 w-screen ">
-                {data?.map((product, i) => (
-                    <motion.section layout variants={RouteVariant} initial="hidden" animate="visible"  onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className="bg-stone-200 flex justify-around items-center rounded-xl">
-                    <div className="w-[100px] h-[100px] relative">
-                        <Image className="mix-blend-darken" src={product.image} fill alt={product.title} />
-                    </div>
-                    <div className="flex flex-col justify-center">
-                        <h3 className="text-stone-700">{product.title}</h3>
-                        <p className="text-stone-600 text-[.8rem] font-[600]">{NumberFormat(product.price)}</p>
-                    </div>
-                </motion.section>
-            ))}
-            </nav>
+                {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4">No items yet 🧐</p>}
+                <nav className="flex flex-col justify-center gap-2 w-screen ">
+                    {data?.map((product, i) => (
+                        <motion.section layout variants={CardVariant} initial="hidden" animate="visible" exit="exit" onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className="bg-stone-200 flex justify-around items-center rounded-xl">
+                            <div className="w-[100px] h-[100px] relative">
+                                <Image className="mix-blend-darken" src={product.image} fill alt={product.title} />
+                            </div>
+                            <div className="flex flex-col justify-center">
+                                <h3 className="text-stone-700">{product.title}</h3>
+                                <p className="text-stone-600 text-[.8rem] font-[600]">{NumberFormat(product.price)}</p>
+                            </div>
+                        </motion.section>
+                    ))}
+                </nav>
+            </AnimatePresence>
             {data ? data.length && <section className="flex flex-col justify-center items-center">
-            <div className="flex justify-around items-center mt-2 w-full mb-3">
+                <div className="flex justify-around items-center mt-2 w-full mb-3">
                     <h4 className="text-stone-100 font-[600] text-2xl">Total</h4>
                     <p className="text-stone-400">{NumberFormat(total!)}</p>
                 </div>
-                <button className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms]">Buy 💰</button>
+                <button onClick={handleBuy} className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms]">Buy 💰</button>
                 {data && <p className="text-stone-500 text-sm mt-3">Double click to delete item 🔴</p>}
             </section> : null}
-            {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
-                <p>Successfully Removed</p>
-            </motion.div>}
-            {error && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
-                <p>There&apos;s an error</p>
-            </motion.div>}
+            <AnimatePresence>
+                {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                    <p>Successfully Removed</p>
+                </motion.div>}
+                {error && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                    <p>There&apos;s an error</p>
+                </motion.div>}
+                {redirecting && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                    <p>Redirect..</p>
+                </motion.div>}
             </AnimatePresence>
         </main>
     )

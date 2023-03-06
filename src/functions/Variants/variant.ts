@@ -26,6 +26,30 @@ export const SideBarVariant = {
     }
 }
 
+export const CardVariant = {
+    hidden : {
+        opacity: 0,
+        scale : .7
+    },
+    visible : {
+        opacity : 1,
+        scale : 1,
+        transition : {
+            type : "spring",
+            damping : 20,
+            stiffness : 300
+        }
+    },
+    exit : {
+        opacity : 0,
+        scale : 0,
+        height : 0,
+        transition : {
+            ease : "easeOut"
+        }
+    }
+}
+
 export const PopUpVariant = {
     hidden : {
         opacity : 0,

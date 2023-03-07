@@ -95,40 +95,40 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                 <Link href="/">
                     <BiLeftArrow className="bg-stone-100 text-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms]" size={35} />
                 </Link>
-                <p className="text-stone-100 font-[600] text-2xl">Cart 🛒</p>
+                <p className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl">Cart 🛒</p>
             </header>
             <AnimatePresence>
                 {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4">No items yet 🧐</p>}
                 <nav className="flex flex-col justify-center gap-2 w-screen ">
                     {data?.map((product, i) => (
                         <motion.section layout variants={CardVariant} initial="hidden" animate="visible" exit="exit" onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className="bg-stone-200 flex justify-around items-center rounded-xl">
-                            <div className="w-[100px] h-[100px] relative">
+                            <div className="w-[160px] h-[130px] relative md:w-[180px] md:h-[150px]">
                                 <Image className="mix-blend-darken" src={product.image} fill alt={product.title} />
                             </div>
                             <div className="flex flex-col justify-center">
-                                <h3 className="text-stone-700">{product.title}</h3>
-                                <p className="text-stone-600 text-[.8rem] font-[600]">{NumberFormat(product.price)}</p>
+                                <h3 className="text-stone-700 xl:text-xl md:text-2xl">{product.title}</h3>
+                                <p className="text-stone-600 text-[.8rem] font-[600] xl:text-[1.3rem] md:text-xl">{NumberFormat(product.price)}</p>
                             </div>
                         </motion.section>
                     ))}
                 </nav>
             </AnimatePresence>
             {data ? data.length && <section className="flex flex-col justify-center items-center">
-                <div className="flex justify-around items-center mt-2 w-full mb-3">
-                    <h4 className="text-stone-100 font-[600] text-2xl">Total</h4>
-                    <p className="text-stone-400">{NumberFormat(total!)}</p>
+                <div className="flex justify-around items-center mt-2 w-full mb-3 xl:mt-6 xl:mb-6">
+                    <h4 className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl">Total</h4>
+                    <p className="text-stone-400 font-[500] xl:text-xl md:text-2xl">{NumberFormat(total!)}</p>
                 </div>
-                <button onClick={handleBuy} className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms]">Buy 💰</button>
+                <button onClick={handleBuy} className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms] xl:p-3 xl:w-[40vw] md:w-[40vw] md:p-4 md:text-lg md:mt-8">Buy 💰</button>
                 {data && <p className="text-stone-500 text-sm mt-3">Double click to delete item 🔴</p>}
             </section> : null}
             <AnimatePresence>
-                {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[20px] xl:p-3 left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                     <p>Successfully Removed</p>
                 </motion.div>}
-                {error && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                {error && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[20px] xl:p-3 left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                     <p>There&apos;s an error</p>
                 </motion.div>}
-                {redirecting && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[10px] left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
+                {redirecting && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] rounded-xl fixed top-[20px] xl:p-3 left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">
                     <p>Redirect..</p>
                 </motion.div>}
             </AnimatePresence>

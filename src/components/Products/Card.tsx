@@ -3,7 +3,7 @@ import Image from "next/image"
 
 const Card: React.FC<{ props: Product }> = ({ props }) => {
   return (
-    <nav className="bg-stone-200 hover:scale-105 transition-[300ms] flex flex-col items-center gap-1 w-[75vw] m-auto rounded-xl relative">
+    <nav className="bg-stone-200 hover:scale-105 transition-[300ms] flex flex-col items-center gap-1 w-[75vw] m-auto rounded-xl relative xl:w-[400px] md:w-[350px]">
       <div className="relative w-[200px] h-[170px]">
         <Image className="mix-blend-darken" loading="lazy" src={props.image} alt={props.title} fill />
       </div>

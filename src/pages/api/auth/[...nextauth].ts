@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google"
 import GithubProvider from "next-auth/providers/github"
 import NextAuth from "next-auth/next";
-import { prisma } from "@/server/utils/context";
+import prisma from "@/functions/Prisma/prisma";
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -30,10 +30,10 @@ export const authOptions: NextAuthOptions = {
         async signIn({ user, account }) {
             try {
 
-                const duplicate = await prisma.user.findFirst({ where: { id: account?.providerAccountId } })
+                const duplicate = await prisma?.user.findFirst({ where: { id: account?.providerAccountId } })
                 
                 if (!duplicate) {
-                    await prisma.user.create({ data: { id: account?.providerAccountId, email: user.email!, profile: user.image!, username: user.name! } })
+                    await prisma?.user.create({ data: { id: account?.providerAccountId, email: user.email!, profile: user.image!, username: user.name! } })
                     
                     return true
                 }

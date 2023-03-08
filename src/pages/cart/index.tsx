@@ -87,7 +87,7 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
 
     useEffect(() => {
         setTotal(data?.reduce((a, b) => data.length * b.price, 0))
-    }, [data?.length])
+    }, [data, data?.length])
 
     return (
         <main className="w-screen h-screen bg-neutral-900">

@@ -1,11 +1,18 @@
 import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiFillGithub } from "react-icons/ai"
+import Head from "next/head"
 
 export const BASEURI = "https://p3commerce.vercel.app"
 
 const SignIn = () => {
   return (
+    <>
+    <Head>
+      <title>Sign In | P3-Commerce</title>
+      <meta name="description" content="Shop the latest Adidas shoes online through our app. Find exclusive collections, discounts and more. Download now and step up your shoe game." />
+      <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
+    </Head>
     <main className="bg-neutral-900 p-3 w-screen h-screen overflow-hidden inline-block xl:flex xl:justify-around xl:items-center">
       <nav className="xl:w-[40vw]">
         <h3 className="text-stone-100 xl: font-[900] selection:bg-orange-100 
@@ -28,6 +35,7 @@ const SignIn = () => {
         <span className="h-[35vw] w-[60vw] absolute bottom-0 right-0 backdrop-blur-md"></span>
       </section>
     </main>
+    </>
   )
 }
 

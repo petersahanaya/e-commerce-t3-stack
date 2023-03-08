@@ -11,6 +11,7 @@ import Link from "next/link"
 import { AnimatePresence,motion } from "framer-motion"
 import { CardVariant  } from "@/functions/Variants/variant"
 import { BiLeftArrow } from "react-icons/bi"
+import Head from "next/head"
 
 const Search: React.FC<{ products: Product[] }> = ({ products }) => {
     const [search, setSearch] = useState("")
@@ -45,6 +46,12 @@ const Search: React.FC<{ products: Product[] }> = ({ products }) => {
     }, [products])
 
     return (
+        <>
+        <Head>
+            <title>Search Shoes: Buy the Latest Collection Online | P3-Commerce</title>
+            <meta name="description" content="Shop the latest Adidas shoes online through our app. Find exclusive collections, discounts and more. Download now and step up your shoe game." />
+            <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
+        </Head>
         <main className="bg-neutral-900 w-screen overflow-y-scroll h-screen pb-8">
              <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
                 <Link href="/">
@@ -75,6 +82,7 @@ const Search: React.FC<{ products: Product[] }> = ({ products }) => {
                 </AnimatePresence>
             </nav>
         </main>
+    </>
     )
 }
 

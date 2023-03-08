@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { PopUpVariant } from "@/functions/Variants/variant"
 import { NumberFormat } from "@/functions/Format/format"
+import Head from "next/head"
 
 const ProductId: React.FC<{ product: Product}> = ({ product }) => {
     const [success, setSuccess] = useState(false)
@@ -53,6 +54,12 @@ const ProductId: React.FC<{ product: Product}> = ({ product }) => {
     }
 
     return (
+        <>
+        <Head>
+            <title>{product.title}</title>
+            <meta name="description" content="Shop the latest Adidas shoes online through our app. Find exclusive collections, discounts and more. Download now and step up your shoe game." />
+            <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
+        </Head>
         <main className="w-screen h-screen bg-neutral-900 overflow-hidden">
             <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
                 <Link href="/">
@@ -93,6 +100,7 @@ const ProductId: React.FC<{ product: Product}> = ({ product }) => {
             </motion.div>}
             </AnimatePresence>
         </main>
+    </>
     )
 }
 

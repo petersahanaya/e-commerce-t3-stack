@@ -13,6 +13,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { CardVariant, PopUpVariant } from "@/functions/Variants/variant"
 import getStripe from "@/functions/Stripe/Stripe"
 import { BASEURI } from "../signIn"
+import Head from "next/head"
 
 const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
     const [success, setSuccess] = useState(false)
@@ -90,6 +91,12 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
     }, [data, data?.length])
 
     return (
+        <>
+        <Head>
+            <title>Cart | P3-Commerce</title>
+            <meta name="description" content="Shop the latest Adidas shoes online through our app. Find exclusive collections, discounts and more. Download now and step up your shoe game." />
+            <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
+        </Head>
         <main className="w-screen h-screen bg-neutral-900">
             <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
                 <Link href="/">
@@ -133,6 +140,7 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
                 </motion.div>}
             </AnimatePresence>
         </main>
+    </>
     )
 }
 

@@ -2,6 +2,7 @@ import Images from "@components/Images/Images"
 import { GetServerSideProps } from "next"
 import { getServerSession, Session } from "next-auth"
 import { signOut } from "next-auth/react"
+import Head from "next/head"
 import Image from "next/image"
 import Link from "next/link"
 import { BiLeftArrow } from "react-icons/bi"
@@ -11,6 +12,12 @@ import { authOptions } from "../api/auth/[...nextauth]"
 
 const Profile : React.FC<{user : Session['user']}> = ({user}) => {
     return (
+        <>
+        <Head>
+            <title>Profile | {user.name}</title>
+            <meta name="description" content="Shop the latest Adidas shoes online through our app. Find exclusive collections, discounts and more. Download now and step up your shoe game." />
+            <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
+        </Head>
         <main className="bg-neutral-900 w-screen h-screen">
             <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
                 <Link href="/">
@@ -51,6 +58,7 @@ const Profile : React.FC<{user : Session['user']}> = ({user}) => {
             </div>
             </footer>
         </main>
+        </>
     )
 }
 

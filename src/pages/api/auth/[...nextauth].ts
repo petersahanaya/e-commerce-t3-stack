@@ -31,15 +31,15 @@ export const authOptions: NextAuthOptions = {
             try {
 
                 const duplicate = await prisma?.user.findFirst({ where: { id: account?.providerAccountId } })
-                
+
                 if (!duplicate) {
                     await prisma?.user.create({ data: { id: account?.providerAccountId, email: user.email!, profile: user.image!, username: user.name! } })
-                    
+
                     return true
                 }
-                
+
                 return true
-            }catch(e) {
+            } catch (e) {
                 console.log(e)
 
                 return true
@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
     pages: {
         signIn: "/signIn"
     },
-    secret : process.env.NEXTAUTH_SECRET! 
+    secret: process.env.NEXTAUTH_SECRET!
 }
 
 export default NextAuth(authOptions)

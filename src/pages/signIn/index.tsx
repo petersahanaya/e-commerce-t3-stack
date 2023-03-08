@@ -2,7 +2,7 @@ import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiFillGithub } from "react-icons/ai"
 
-export const BASEURI = process.env.VERCEL || "http://localhost:3000"
+export const BASEURI = "https://" + process.env.VERCEL_URL || "http://localhost:3000"
 
 const SignIn = () => {
   return (
@@ -22,11 +22,11 @@ const SignIn = () => {
           </button>
         </section>
       </nav>
-        <section className="hidden bg-stone-900 xl:inline-block w-[60vw] h-screen relative right-0 top-0">
-          <div className="w-[250px] bg-slate-500 h-[250px] rounded-full absolute top-[160px] left-[250px]"></div>
-          <div className="w-[255px] bg-slate-100 h-[255px] rounded-full absolute top-[160px] backdrop-blur-md left-[250px]"></div>
-          <span className="h-[35vw] w-[60vw] absolute bottom-0 right-0 backdrop-blur-md"></span>
-        </section>
+      <section className="hidden bg-stone-900 xl:inline-block w-[60vw] h-screen relative right-0 top-0">
+        <div className="w-[250px] bg-slate-500 h-[250px] rounded-full absolute top-[160px] left-[250px]"></div>
+        <div className="w-[255px] bg-slate-100 h-[255px] rounded-full absolute top-[160px] backdrop-blur-md left-[250px]"></div>
+        <span className="h-[35vw] w-[60vw] absolute bottom-0 right-0 backdrop-blur-md"></span>
+      </section>
     </main>
   )
 }

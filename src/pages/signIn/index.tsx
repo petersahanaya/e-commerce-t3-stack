@@ -2,7 +2,7 @@ import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiFillGithub } from "react-icons/ai"
 
-export const BASEURI = "https://" + process.env.VERCEL_URL || "http://localhost:3000"
+export const BASEURI = "https://p3commerce.vercel.app"
 
 const SignIn = () => {
   return (

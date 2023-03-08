@@ -66,7 +66,7 @@ const ProductId: React.FC<{ product: Product}> = ({ product }) => {
             {/* Laptop Responsive */}
             <section className="w-screen h-[96vh] xl:flex justify-around items-center xl:p-3 md:flex md:p-3">
             <nav className="bg-neutral-200">
-                <div className="xl:h-[370px] xl:translate-y-[-150px] rounded-xl xl:w-max xl:bg-stone-200 md:h-[370px] md:translate-y-[-150px] md:w-max md:bg-stone-200">
+                <div className="xl:h-[370px] xl:translate-y-[-150px] rounded-full overflow-hidden xl:w-max xl:bg-stone-200 md:h-[370px] md:translate-y-[-150px] md:w-max md:bg-stone-200">
                     <div className="w-[200px] h-48 xl:w-[400px] relative xl:h-64 md:w-[400px]  md:h-64  m-auto rounded-xl">
                         <Image className="mix-blend-darken" src={products!.image} alt={products!.title} fill/>
                     </div>

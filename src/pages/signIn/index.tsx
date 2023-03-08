@@ -2,7 +2,7 @@ import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { AiFillGithub } from "react-icons/ai"
 
-export const BASEURI = "http://localhost:3000"
+export const BASEURI = process.env.VERCEL || "http://localhost:3000"
 
 const SignIn = () => {
   return (

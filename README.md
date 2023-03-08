@@ -1,5 +1,5 @@
 ## Commerce Web App
-This is a web app for an e-commerce store built with Next.js, tRPC, Prisma, React Query, and Stripe. The app allows users to browse, search, and purchase products online using their credit card. It also includes features such as user authentication, order history, and real-time updates on order status.
+This is a web app for an e-commerce store built with Next.js, tRPC, Prisma, React Query, and Stripe. The app allows users to browse, search, and purchase products online using their credit card.
 
 ## Getting started
 To get started with this app, follow these steps:

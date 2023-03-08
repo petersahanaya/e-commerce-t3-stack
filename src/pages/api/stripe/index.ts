@@ -27,7 +27,7 @@ const handler: NextApiHandler = async (req, res) => {
                 images: [product.image],
                 description: product.description,
               },
-              unit_amount: product.price
+              unit_amount: product.price * 100
             },
             quantity: 1
           }

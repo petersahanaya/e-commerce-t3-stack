@@ -1,7 +1,6 @@
 import { GetServerSideProps } from "next"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../api/auth/[...nextauth]"
-import { BsFilter } from "react-icons/bs"
 import { CiSearch } from "react-icons/ci"
 import { ChangeEvent, useCallback, useState } from "react"
 import prisma from "@/functions/Prisma/prisma"

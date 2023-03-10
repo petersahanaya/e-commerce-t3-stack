@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 const Preview = () => {
   return (
     <main className="w-screen h-[28vh] xl:h-[45vh] 4xl:h-[60vh] bg-neutral-800 relative xl:bg-gradient-to-b from-stone-900 to-neutral-800 xl:mt-12 md:mt-16 3xl:mt-60 md:h-[45vh]">

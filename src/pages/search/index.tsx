@@ -55,20 +55,19 @@ const Search: React.FC<{ products: Product[] }> = ({ products }) => {
         <main className="bg-neutral-900 w-screen overflow-y-scroll h-screen pb-8">
              <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
                 <Link href="/">
-                    <BiLeftArrow className="bg-stone-100 text-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms]" size={40} />
+                    <BiLeftArrow className="bg-stone-100 4xl:text-8xl 4xl:p-5  text-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms] text-3xl 3xl:text-9xl 3xl:p-5" />
                 </Link>
-                <p className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl">Search 👞</p>
+                <p className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl 3xl:text-9xl 4xl:text-7xl">Search 👞</p>
             </header>
             <header className="w-full h-[12vh] p-2 flex justify-around items-center">
                 <div className="relative w-64 xl:w-[40vw] md:w-[55vw]">
                     {/*@ts-expect-error keyboard events error */}
-                    <input onKeyDown={handleEnter} onChange={handleSearch} name='search' value={search} className="p-2 xl:p-3  xl:pl-16 md:p-3 md:text-lg md:pl-16 outline-none text-sm tracking-tight bg-neutral-600 rounded-full pl-12 w-full text-stone-50" type="text" placeholder="search product.." />
-                    <CiSearch className="absolute p-1 rounded-full bg-neutral-200 top-[3px] xl:top-[6px] left-[10px] md:top-[7px]" size={30} />
+                    <input onKeyDown={handleEnter} onChange={handleSearch} name='search' value={search} className="p-2 xl:p-3 xl:pl-16 3xl:p-20 3xl:text-5xl 4xl:p-9 4xl:text-4xl 4xl:pl-44 3xl:pl-44 md:p-3 md:text-lg md:pl-16 outline-none text-sm tracking-tight bg-neutral-600 rounded-full pl-12 w-full text-stone-50" type="text" placeholder="search product.." />
+                    <CiSearch className="absolute p-1 rounded-full bg-neutral-200 top-[3px] xl:top-[6px] left-[10px] md:top-[7px] text-2xl 3xl:text-9xl 3xl:p-5 3xl:top-[50px] 3xl:left-[30px] 4xl:text-8xl 4xl:p-6 4xl:top-[10px] 4xl:left-[10px]" />
                 </div>
-                {/*<BsFilter onClick={() => setToggle(prev => !prev)} className="bg-stone-100 p-1 rounded-2xl" size={35} />*/}
             </header>
             <nav>
-                {!data || !data.length && <p className="mt-3 text-center text-stone-400 text-sm">Search for product you want 😆</p>}
+                {!data || !data.length && <p className="mt-3 text-center text-stone-400 text-sm 3xl:text-5xl 4xl:text-4xl">Search for product you want 😆</p>}
             </nav>
             <nav className="w-screen grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 xl:gap-4 gap-2 ">
                 <AnimatePresence>

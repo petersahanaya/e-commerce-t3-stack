@@ -12,9 +12,9 @@ const Products : React.FC<{products : Product[]}> = ({products}) => {
     }
 
   return (
-    <main className="p-2 mt-4 xl:p-6 md:p-4">
-        <h4 id="popular" className="font-[700] text-2xl text-stone-100 xl:mb-4 md:mb-4 md:text-3xl">Most <span className="text-pink-600">Popular</span> 👟</h4>
-        <nav className="mt-3 grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 xl:gap-4 gap-2 ">
+    <main className="p-2 mt-4 xl:p-6 md:p-4 3xl:p-10 ">
+        <h4 id="popular" className="font-[700] text-2xl 3xl:text-8xl text-stone-100 xl:mb-4 3xl:mb-12 md:mb-4 md:text-3xl">Most <span className="text-pink-600">Popular</span> 👟</h4>
+        <nav className="mt-3 grid grid-cols-1 xl:grid-cols-3 3xl:grid-cols-4 3xl:gap-6 4xl:grid-cols-3 md:grid-cols-2 xl:gap-4 gap-2 ">
             {productss?.map(product => (
                 <Link href={`/product/${product.id}`} key={product.id}>
                     <Card props={product}/>

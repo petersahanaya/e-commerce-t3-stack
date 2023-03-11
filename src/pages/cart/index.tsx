@@ -101,23 +101,23 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
             <meta name="keywords" content="Adidas Shoes, Sneakers, Running Shoes, Athletic Footwear, Buy Shoes Online" />
         </Head>
         <main className="w-screen pb-32 bg-neutral-900">
-            <header className="w-screen h-[12vh] p-2 flex justify-around items-center">
+            <header className="w-screen h-[12vh] p-2 flex justify-around items-center 2lg:mb-5">
                 <Link href="/">
-                    <BiLeftArrow className="bg-stone-100 text-4xl 3xl:text-9xl 3xl:p-7 4xl:text-8xl 4xl:p-5 ext-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms]" />
+                    <BiLeftArrow className="bg-stone-100 text-4xl 3xl:text-9xl 3xl:p-7 4xl:text-8xl 4xl:p-5 ext-stone-700 p-2 rounded-bl-xl rounded-tr-xl hover:bg-stone-300 transition-[200ms] 2lg:text-8xl 2lg:p-4" />
                 </Link>
-                <p className="text-stone-100 font-[600] text-2xl 3xl:text-8xl xl:text-3xl md:text-4xl">Cart 🛒</p>
+                <p className="text-stone-100 font-[600] text-2xl 3xl:text-8xl xl:text-3xl md:text-4xl 2lg:text-7xl">Cart 🛒</p>
             </header>
             <AnimatePresence>
-                {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4 3xl:text-6xl">No items yet 🧐</p>}
+                {!data || !data.length && <p className="text-center text-stone-400 text-xl font-[500] tracking-tight mt-4 3xl:text-6xl 2lg:text-5xl">No items yet 🧐</p>}
                 <nav className="flex flex-col justify-center gap-2 w-screen ">
                     {data?.map((product, i) => (
                         <motion.section layout variants={CardVariant} initial="hidden" animate="visible" exit="exit" onDoubleClick={() => handleRemoveItem(product.id)} key={product.id} className={`bg-stone-200 flex justify-around items-center rounded-xl`}>
-                            <div className="w-[160px] h-[130px] relative md:w-[180px] md:h-[150px] 3xl:w-[500px] 3xl:h-[500px] 4xl:w-[400px] 4xl:h-[400px]">
+                            <div className="w-[160px] h-[130px] relative md:w-[180px] md:h-[150px] 3xl:w-[500px] 3xl:h-[500px] 4xl:w-[400px] 4xl:h-[400px] 2lg:w-[300px] 2lg:h-[300px]">
                                 <Image className="mix-blend-darken" src={product.image} fill alt={product.title} />
                             </div>
                             <div className="flex flex-col justify-center">
-                                <h3 className="text-stone-700 xl:text-xl md:text-2xl 3xl:text-6xl 4xl:text-5xl">{product.title}</h3>
-                                <p className="text-stone-600 text-[.8rem] font-[600] 3xl:text-5xl xl:text-[1.3rem] md:text-xl 4xl:text-5xl">{NumberFormat(product.price)}</p>
+                                <h3 className="text-stone-700 2lg:text-5xl xl:text-xl md:text-2xl 3xl:text-6xl 4xl:text-5xl">{product.title}</h3>
+                                <p className="text-stone-600 text-[.8rem] font-[600] 3xl:text-5xl xl:text-[1.3rem] md:text-xl 4xl:text-5xl 2lg:text-4xl">{NumberFormat(product.price)}</p>
                             </div>
                         </motion.section>
                     ))}
@@ -125,11 +125,11 @@ const Cart: React.FC<{ products: Product[] | null }> = ({ products }) => {
             </AnimatePresence>
             {data ? data.length && <section className="flex 3xl:mt-20 flex-col justify-center items-center">
                 <div className="flex justify-around items-center mt-2 w-full mb-3 xl:mt-6 xl:mb-6">
-                    <h4 className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl 3xl:text-8xl">Total</h4>
-                    <p className="text-stone-400 font-[500] xl:text-xl 4xl:text-6xl md:text-2xl 3xl:text-7xl">{NumberFormat(total!)}</p>
+                    <h4 className="text-stone-100 font-[600] text-2xl xl:text-3xl md:text-4xl 3xl:text-8xl 2lg:text-7xl">Total</h4>
+                    <p className="text-stone-400 font-[500] 2lg:text-6xl xl:text-xl 4xl:text-6xl md:text-2xl 3xl:text-7xl">{NumberFormat(total!)}</p>
                 </div>
-                <button onClick={handleBuy} className="bg-lime-500 text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms] xl:p-3 xl:w-[40vw] md:w-[40vw] md:p-4 md:text-lg md:mt-8 3xl:text-7xl 3xl:p-8 4xl:text-5xl">Buy 💰</button>
-                {data && <p className="text-stone-500 text-sm mt-3 3xl:text-5xl 3xl:mt-12">Double click to delete item 🔴</p>}
+                <button onClick={handleBuy} className="bg-lime-500 2lg:text-5xl text-stone-700 p-2 rounded-full w-[70vw] font-[600] hover:bg-lime-600 transition-[200ms] xl:p-3 xl:w-[40vw] md:w-[40vw] md:p-4 md:text-lg md:mt-8 3xl:text-7xl 3xl:p-8 4xl:text-5xl">Buy 💰</button>
+                {data && <p className="text-stone-500 text-sm mt-3 3xl:text-5xl 3xl:mt-12 2lg:text-4xl">Double click to delete item 🔴</p>}
             </section> : null}
             <AnimatePresence>
                 {success && <motion.div variants={PopUpVariant} initial="hidden" animate="visible" exit="hidden" className="w-[70vw] 3xl:text-5xl 3xl:top-[10rem] 3xl:p-8  rounded-xl fixed top-[20px] xl:p-3 left-[18%] p-2 text-stone-300 bg-stone-800 text-center text-sm">

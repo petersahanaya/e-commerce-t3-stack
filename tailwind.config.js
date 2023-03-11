@@ -20,6 +20,9 @@ module.exports = {
       'lg': '1024px',
       // => @media (min-width: 1024px) { ... }
 
+      '2lg': '1920px',
+      // => @media (min-width: 1920px) { ... }
+
       'xl': '1280px',
       // => @media (min-width: 1280px) { ... }
 

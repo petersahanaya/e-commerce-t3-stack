@@ -1,32 +1,18 @@
-## Commerce Web App
-This is a web app for an e-commerce store built with Next.js, tRPC, Prisma, React Query, and Stripe. The app allows users to browse, search, and purchase products online using their credit card.
+![Cover Image](https://github.com/petersahanaya/e-commerce-t3-stack/assets/114085979/5b0a9ba1-2114-4c62-90c6-0729f6fd9841)
 
-## Getting started
-To get started with this app, follow these steps:
+### 💁🏼‍♂️ Shoes Application - P3Commerce
+P3Commerce is a shoes application where you can choose and buy an shoe that you want, built using Next Js, tRPC and other technology.
 
-## Technologies used
-This app is built with the following technologies:
+### 💡 Features
+* Authentication with Oauth
+* Cart system 
+* Payment checkout 
+* tRPC Api
 
-- Next.js: A React framework for building server-side rendered applications.
-- tRPC: A framework for building type-safe and fast APIs in TypeScript.
-- Prisma: A database toolkit for TypeScript and Node.js that helps you write safer and more efficient database queries.
-- React Query: A library for managing server state in React applications.
-- Stripe: A payment processing platform for online businesses.
+### 🎥 Video Preview 
+[![Video Preview](https://github.com/petersahanaya/e-commerce-t3-stack/assets/114085979/5b0a9ba1-2114-4c62-90c6-0729f6fd9841)](https://github.com/petersahanaya/e-commerce-t3-stack/assets/114085979/6ac0e2ca-15ac-487b-ba12-eff31539d56a)
 
-## Features
-This app includes the following features:
-
-- Browse and search products
-- Add products to cart and checkout using Stripe
-- User authentication using oAuth
-- Admin dashboard for managing products and orders
+### 🕹️ Technology 
+Next Js · React Js · Node Js · Tailwind Css · tRPC · React Query · Git 
 
 
-## Deployment
-This app can be deployed to a cloud hosting provider such as Vercel or AWS. Before deploying, make sure to set up the environment variables in your hosting provider's dashboard.
-
-## Contributing
-Contributions are welcome! Feel free to submit a pull request or open an issue if you find any bugs or have any suggestions for improving the app.
-
-## License
-This app is licensed under the MIT license. See the LICENSE file for more details.
